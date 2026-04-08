@@ -1,44 +1,34 @@
-//TPoint.java
-/*
- This is just a trivial "struct" type class --
- it simply holds an int x/y point for use by Tetris,
- and supports equals() and toString().
- We'll allow public access to x/y, so this
- is not an object really.
+/**
+ * Just a simple struct to represent an (x,y) point.
  */
 public class TPoint {
-	public int x;
-	public int y;
+    public final int x;
+    public final int y;
 
-	// Creates a TPoint based in int x,y
-	public TPoint(int x, int y) {
-		// questionable style but convenient --
-		// params with same name as ivars
+    public TPoint(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-		this.x = x;
-		this.y = y;
-	}
+    public TPoint(TPoint p) {
+        this.x = p.x;
+        this.y = p.y;
+    }
 
-	// Creates a TPoint, copied from an existing TPoint
-	public TPoint(TPoint point) {
-		this.x = point.x;
-		this.y = point.y;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TPoint)) return false;
+        TPoint p = (TPoint) obj;
+        return x == p.x && y == p.y;
+    }
 
-	// Standard equals() override
-	public boolean equals(Object other) {
-		// standard two checks for equals()
-		if (this == other) return true;
-		if (!(other instanceof TPoint)) return false;
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 
-		// check if other point same as us
-		TPoint pt = (TPoint)other;
-		return(x==pt.x && y==pt.y);
-	}
-
-	// Standard toString() override, produce
-	// human-readable String from object
-	public String toString() {
-		return "(" + x + "," + y + ")";
-	}
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ")";
+    }
 }
